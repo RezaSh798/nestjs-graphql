@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { AuthorsModule } from './authors/auhtors.module';
-import { PostsModule } from './posts/posts.module';
+import { PetsModule } from './pets/pets.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -11,8 +11,13 @@ import { PostsModule } from './posts/posts.module';
       driver: ApolloDriver,
       autoSchemaFile: join(__dirname, './schema.gql'),
     }),
-    AuthorsModule,
-    PostsModule,
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: ':memmory:',
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: true,
+    }),
+    PetsModule,
   ],
 })
 export class AppModule {}
