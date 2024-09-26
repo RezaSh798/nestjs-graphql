@@ -4,7 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { PetsModule } from './pets/pets.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OwnerModule } from './owners/owners.module';
+import { OwnersModule } from './owners/owners.module';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { OwnerModule } from './owners/owners.module';
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    OwnerModule,
+    OwnersModule,
     PetsModule,
   ],
 })

@@ -1,5 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsAlpha, IsString } from 'class-validator';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Field, InputType, Int } from '@nestjs/graphql';
+import { IsAlpha, IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreatePetInput {
@@ -7,7 +8,11 @@ export class CreatePetInput {
   @IsAlpha()
   name: string;
 
+  @IsNumber()
+  @Field((type) => Int)
+  ownerId: number;
+
   @Field({ nullable: true })
-  @IsString()
+  // @IsString()
   type?: string;
 }
