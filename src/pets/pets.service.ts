@@ -10,6 +10,10 @@ export class PetsService {
     @InjectRepository(Pet) private readonly petRepository: Repository<Pet>,
   ) {}
 
+  async findOne(id: number): Promise<Pet> {
+    return await this.petRepository.findOneByOrFail({ id });
+  }
+
   async findMany(): Promise<Pet[]> {
     return await this.petRepository.find();
   }

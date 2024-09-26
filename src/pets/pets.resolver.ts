@@ -1,4 +1,5 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Pet } from './pet.entity';
 import { PetsService } from './pets.service';
 import { CreatePetInput } from './dto/create-pet.input';
@@ -6,6 +7,11 @@ import { CreatePetInput } from './dto/create-pet.input';
 @Resolver((of) => Pet)
 export class PetsResolver {
   constructor(private readonly petService: PetsService) {}
+
+  @Query((returns) => Pet, { name: 'pet' })
+  async findOne(@Args('id', { type: () => Int }) id: number): Promise<Pet> {
+    return await this.petService.findOne(id);
+  }
 
   @Query((returns) => [Pet], { name: 'pets' })
   async findMany(): Promise<Pet[]> {
